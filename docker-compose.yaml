@@ -1,0 +1,30 @@
+services:
+  links_api:
+    build: src/links_api
+    ports: 
+      - "80:80"
+    networks: 
+      - my-network
+  video_api:
+    build: src/video_api
+    ports:
+      - "81:81"
+    networks:
+      - my-network  
+    volumes:
+      - shared:/shared
+  pipeline:
+    build: src/pipeline
+    ports:
+      - "82:82"
+    networks:
+      - my-network
+    depends_on:
+      - links_api
+      - video_api
+    volumes:
+    - shared:/shared
+networks:
+  my-network:
+volumes:
+  shared:
