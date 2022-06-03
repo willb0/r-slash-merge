@@ -2,7 +2,7 @@ FROM arm64v8/python:3.9-slim
 
 
 WORKDIR /usr/src/api
-RUN apt-get update
+RUN apt-get update && apt-get -y install tk-dev 
 COPY requirements.txt /usr/src/api/requirements.txt
 
 ENV PYTHONUNBUFFERED=1

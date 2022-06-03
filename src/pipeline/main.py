@@ -15,6 +15,7 @@ def home():
 
 @app.post('/compilation')
 def build_compilation(lr: LinkRequest):
+    print(lr.dict())
     links = requests.post('http://links_api:80/videos', json=lr.dict()).json()['links']
     requests.post('http://video_api:81/download',
                  json={'subreddit': lr.subreddit,

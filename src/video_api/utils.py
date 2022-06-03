@@ -34,12 +34,6 @@ def merge_videos(path:str,output:str):
     shutil.move(path + 'stitched-video.mp4',output + 'stitched-video.mp4')
     return 
 
-def check_video_orientation(url:str):
-    res = requests.get(url + '/DASHPlaylist.mpd')
-    tree = ElementTree.fromstring(res.content)
-    attributes = tree[0][0].attrib
-    orientation = attributes['par']
-    return orientation == '16:9'
 
 
     

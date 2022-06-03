@@ -23,6 +23,11 @@ def missing_subreddit():
 
 @app.post('/videos/')
 def get_links(req:LinkRequest):
-    subreddit,num,freq = req.subreddit,req.num,req.freq
-    links = agg_links(reddit,subreddit,num,freq)
-    return {"subreddit":subreddit,'links':links,'freq':freq,'num':num}
+    print(req.orientation)
+    links = agg_links(reddit, req)
+    return {
+        "subreddit":req.subreddit,
+        'links':links,
+        'freq':req.freq,
+        'num':req.num
+        }

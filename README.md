@@ -7,6 +7,10 @@ docker-compose build
 docker-compose up
 ```
 
+and go hit localhost:82/docs
+port 81 is video api
+port 80 is links api
+
 when u kill it
 `docker-compose down --volumes`
 
