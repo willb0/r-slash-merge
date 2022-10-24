@@ -3,7 +3,7 @@ from turtle import down
 from fastapi import FastAPI, File
 from fastapi.responses import FileResponse
 from models import LinkMerge
-from utils import download_video,merge_videos
+from utils import download_video,merge_videos,cleanup
 
 app = FastAPI()
 
@@ -13,6 +13,7 @@ def home():
 
 @app.post('/download')
 def download_videos(lm:LinkMerge):
+    cleanup(['/usr/src/api/videos','/shared/'])
     for link in lm.links:
         download_video(link)
     return
@@ -20,7 +21,8 @@ def download_videos(lm:LinkMerge):
 @app.get('/merge')
 def agg_videos():
     merge_videos('/usr/src/api/','/shared/')
-    return FileResponse('/shared/stitched-video.mp4',media_type='video/mp4',headers={'Content-Disposition': 'attachment; filename=merge.mp4'})
+    res = FileResponse('/shared/stitched-video.mp4',media_type='video/mp4',headers={'Content-Disposition': 'attachment; filename=merge.mp4'})
+    return res
 
     
 

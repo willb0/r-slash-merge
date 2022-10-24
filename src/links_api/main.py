@@ -23,7 +23,6 @@ def missing_subreddit():
 
 @app.post('/videos/')
 def get_links(req:LinkRequest):
-    print(req.orientation)
     links = agg_links(reddit, req)
     return {
         "subreddit":req.subreddit,

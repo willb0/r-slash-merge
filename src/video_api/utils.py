@@ -33,7 +33,10 @@ def merge_videos(path:str,output:str):
     subprocess.call(['sh','./merg.sh'])
     shutil.move(path + 'stitched-video.mp4',output + 'stitched-video.mp4')
     return 
-
+def cleanup(paths):
+    for path in paths:
+        for filename in glob.glob(path + '*.mp4'):
+            os.remove(filename)
 
 
     

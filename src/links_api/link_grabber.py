@@ -8,13 +8,13 @@ import re
 
 orientations = {}
 def agg_links(reddit:praw.Reddit,req:LinkRequest):
-    print(req.orientation)
+    if reddit == None:
+        return None
     links = []
     try:
         sreddit = reddit.subreddit(req.subreddit)
     except Exception as e:
-        print(e)
-        print('error, subreddit DNF')
+        return None
     submissions = sreddit.top(time_filter=req.freq,limit=req.num*20)
     ct = 0
     lo,hi = req.lo,req.hi
@@ -22,13 +22,12 @@ def agg_links(reddit:praw.Reddit,req:LinkRequest):
         split_by_period = submission.url.split('.')
         start = split_by_period[0]
         or_check = True if req.orientation == 'Any' else check_video_orientation(submission.url,req.orientation)
-        
         len_check = check_video_length(submission.url,lo,hi)
         if start[-1] == 'v' and len_check and or_check:
             ct += 1
             links.append(submission.url)
-            if ct == req.num:
-                return links
+        if ct == req.num:
+            return links
     print(f"Couldn't find enough videos for you, only found {ct}")
     print(f'orientations: {orientations}')
     assert ct != 0, 'Found no videos'
@@ -69,11 +68,10 @@ def check_video_length(url:str,lo:int,hi:int):
             except ValueError as e:
                 dur = dur[2:]
             if lo <= float(dur) <= hi:
-                #print(dur)
+                print(dur)
                 return True
         return False
     except Exception as e:
         #print(e)
         return False
-    
     
