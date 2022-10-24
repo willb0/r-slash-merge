@@ -14,13 +14,15 @@ class Orientation(str,Enum):
     portrait = '4:3'
     ios = '3:4'
     sq = '1:1'
+    Any = 'Any'
 
 class LinkRequest(BaseModel):
     subreddit: str
     freq: Frequency
     num: int = Field(gt=0,le=100)
     orientation: Orientation
-    length: Optional[int] = None
+    lo: int = 0
+    hi: int = 30
 
     class Config:
         use_enum_values = True
