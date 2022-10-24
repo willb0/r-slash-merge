@@ -6,12 +6,15 @@ cd r-slash-merge
 docker-compose build
 docker-compose up
 ```
-
-and go hit localhost:82/docs
-port 81 is video api
-port 80 is links api
+dashboard : [localhost:8501/](https://localhost:8501/)
+links-api : [localhost:80/](https://localhost:80/docs)
+video-api : [localhost:81/](https://localhost:81/docs)
+pipeline : [localhost:82/](https://localhost:82/docs)
 
 when u kill it
 `docker-compose down --volumes`
 
-doesnt delete videos from shared storage or local storage after download, doing that next
+## Dashboard
+The dashboard provides a Streamlit UI to test the app and view the video response
+it will look like this:
+<img src="images/screenshot.jpg" alt="drawing" width="200"/>
